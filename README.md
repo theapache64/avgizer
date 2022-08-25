@@ -14,7 +14,6 @@
 
 - https://twitter.com/theapache64/status/1562737317236084736
 
-
 ## ✍️ Author
 
 👤 **theapache64**
@@ -49,7 +48,6 @@ Give a ⭐️ if this project helped you!
 <a href="https://www.buymeacoffee.com/theapache64" target="_blank">
     <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" width="160">
 </a>
-
 
 ## 📝 License
 
