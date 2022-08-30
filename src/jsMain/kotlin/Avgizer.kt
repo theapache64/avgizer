@@ -20,7 +20,10 @@ class Avgizer {
             val count = data.count { it.text == key }
             groupedMap[key] = groupedMap[key]?.div(count) ?: -1
         }
-        return groupedMap.map { "${it.key}${it.value}" }
+        return groupedMap.map { groupedItem ->
+            val count = data.count { it.text == groupedItem.key }
+            "${groupedItem.key}${groupedItem.value} (sample count : $count)"
+        }
     }
 }
 
@@ -32,7 +35,11 @@ private data class TextNumberLine(
 ) {
     companion object {
         fun parse(line: String): TextNumberLine {
-            val number = digitRegex.find(line)?.groupValues?.first() ?: error("$line deosn't have numbers in it")
+            val number = digitRegex.findAll(line)
+                .lastOrNull()
+                ?.groupValues
+                ?.lastOrNull()
+                ?: error("$line deosn't have numbers in it")
             val newLine = line.replace(number, "")
             return TextNumberLine(newLine, number.toInt())
         }
