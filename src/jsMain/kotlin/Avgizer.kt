@@ -9,7 +9,7 @@ class Avgizer {
     }
 
     fun analyse(): List<String> {
-        val groupedMap = mutableMapOf<String, Int>()
+        val groupedMap = mutableMapOf<String, Float>()
         // Sum loop
         for (textNumber in data) {
             groupedMap[textNumber.text] = groupedMap[textNumber.text]?.plus(textNumber.number) ?: textNumber.number
@@ -18,11 +18,11 @@ class Avgizer {
         // Avg loop
         for (key in groupedMap.keys) {
             val count = data.count { it.text == key }
-            groupedMap[key] = groupedMap[key]?.div(count) ?: -1
+            groupedMap[key] = groupedMap[key]?.div(count) ?: -1f
         }
         return groupedMap.map { groupedItem ->
             val count = data.count { it.text == groupedItem.key }
-            "${groupedItem.key}${groupedItem.value} (sample count : $count)"
+            "${groupedItem.key} = ${groupedItem.value} (input count : $count)"
         }
     }
 }
@@ -31,7 +31,7 @@ private val digitRegex = "\\d+".toRegex()
 
 private data class TextNumberLine(
     val text: String,
-    val number: Int
+    val number: Float
 ) {
     companion object {
         fun parse(line: String): TextNumberLine {
@@ -41,7 +41,7 @@ private data class TextNumberLine(
                 ?.lastOrNull()
                 ?: error("$line deosn't have numbers in it")
             val newLine = line.replace(number, "")
-            return TextNumberLine(newLine, number.toInt())
+            return TextNumberLine(newLine, number.toFloat())
         }
     }
 }
