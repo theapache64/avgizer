@@ -40,7 +40,7 @@ private data class TextNumberLine(
                 ?.groupValues
                 ?.lastOrNull()
                 ?: error("$line deosn't have numbers in it")
-            val newLine = line.replace(number, "")
+            val newLine = line.replaceFirst(number, "")
             return TextNumberLine(newLine, number.toFloat())
         }
     }
