@@ -62,9 +62,11 @@ fun Slot() {
             ) {
                 H3 { Text("Average") }
                 Ul {
-                    for (item in output) {
+                    for (node in output) {
                         Li {
-                            Text(item)
+                            A(href = node.sdLink) {
+                                Text(node.text)
+                            }
                         }
                     }
                 }

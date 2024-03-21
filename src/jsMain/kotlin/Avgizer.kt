@@ -1,3 +1,12 @@
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
+
+data class Node(
+    val text: String,
+    val sdLink : String
+)
+
 class Avgizer {
     private val data = mutableListOf<TextNumberLine>()
     fun add(line: String) {
@@ -8,7 +17,7 @@ class Avgizer {
         }
     }
 
-    fun analyse(): List<String> {
+    fun analyse(): List<Node> {
         val groupedMap = mutableMapOf<String, Float>()
         // Sum loop
         for (textNumber in data) {
@@ -22,7 +31,20 @@ class Avgizer {
         }
         return groupedMap.map { groupedItem ->
             val count = data.count { it.text == groupedItem.key }
-            "${groupedItem.key} = ${groupedItem.value} (input count : $count)"
+            val standardDeviation = data.filter { it.text == groupedItem.key }
+                .map { (it.number - groupedItem.value).pow(2) }
+                .sum()
+                .let { sqrt(it / count) }
+
+            // round to decimal places
+            val rounded = standardDeviation.times(100).roundToInt().div(100f)
+            val numbers = data.filter { it.text == groupedItem.key }
+                .map { it.number }
+                .joinToString(separator = ",")
+            Node(
+                text = "${groupedItem.key} = ${groupedItem.value} (input count : $count, SD: $rounded)",
+                sdLink = "https://www.calculator.net/standard-deviation-calculator.html?numberinputs=$numbers&ctype=p&x=Calculate"
+            )
         }
     }
 }
