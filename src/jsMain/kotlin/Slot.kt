@@ -1,6 +1,8 @@
 import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.ATarget
 import org.jetbrains.compose.web.attributes.placeholder
 import org.jetbrains.compose.web.attributes.rows
+import org.jetbrains.compose.web.attributes.target
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -64,7 +66,9 @@ fun Slot() {
                 Ul {
                     for (node in output) {
                         Li {
-                            A(href = node.sdLink) {
+                            A(href = node.sdLink, attrs ={
+                                target(ATarget.Blank)
+                            }) {
                                 Text(node.text)
                             }
                         }
