@@ -11,7 +11,7 @@ fun Slot() {
     val output by derivedStateOf {
         Avgizer().apply {
             for (line in input.split("\n")) {
-                add(line)
+                add(line.trim())
             }
         }.analyse()
     }
